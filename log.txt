@@ -1,0 +1,15 @@
+10.09.2024 14:55:22: Logger [10.09.2024 14:55:22] Request: /api/books/post
+10.09.2024 14:56:34: Logger [10.09.2024 14:56:34] Request: /api/books/post
+10.09.2024 14:58:58: Logger [10.09.2024 14:58:58] Request: /api/books/post
+10.09.2024 14:58:58: Logger [10.09.2024 14:58:58] Response: 200
+10.09.2024 14:59:07: Logger [10.09.2024 14:59:07] Request: /api/books/post
+10.09.2024 14:59:07: Logger [10.09.2024 14:59:07] Response: 200
+10.09.2024 15:00:03: Logger [10.09.2024 15:00:03] Request: /api/books/post
+10.09.2024 15:00:03: Logger [10.09.2024 15:00:03] Response: 200
+10.09.2024 15:01:51: Logger [10.09.2024 15:01:51] Request: /api/books/post
+10.09.2024 15:01:51: Logger [10.09.2024 15:01:51] Response: 200
+10.09.2024 15:03:09: Logger [10.09.2024 15:03:09] Request: /api/books/post
+10.09.2024 15:05:19: Logger [10.09.2024 15:05:19] Request: /api/books/post
+10.09.2024 15:05:19: Logger [10.09.2024 15:05:19] Response: 200
+10.09.2024 15:07:19: Logger [10.09.2024 15:07:19] Request: /api/books/post
+10.09.2024 15:07:20: Logger [10.09.2024 15:07:20] Response: 200
