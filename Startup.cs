@@ -1,52 +1,43 @@
-﻿using System;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Server.Kestrel.Core;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Nancy.Owin;
+using Microsoft.Extensions.Logging;
 
-namespace WorkLearnProject3
+public class Startup
 {
-    public class Startup
+    public void ConfigureServices(IServiceCollection services)
     {
-        private IConfiguration Configuration { get; }
-        private IWebHostEnvironment Env { get; }
+        services.AddLogging();
+        services.AddTransient<LoggerModule>(provider => 
+            new LoggerModule("Logger", provider.GetRequiredService<ILogger<LoggerModule>>()));
+        services.AddControllers();
+    }
 
-        public Startup(IConfiguration configuration, IWebHostEnvironment env)
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    {
+        if (env.IsDevelopment())
         {
-            Configuration = configuration;
-            Env = env;
-            string credentials = Configuration.GetConnectionString("TestDatabase");
-            Console.WriteLine(credentials);
+            app.UseDeveloperExceptionPage();
+        }
+        else
+        {
+            app.UseExceptionHandler("/Home/Error");
+            app.UseHsts();
         }
 
-        public void ConfigureServices(IServiceCollection services)
-        {
-            //services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
-            services.Configure<KestrelServerOptions>(options =>
-            {
-                options.AllowSynchronousIO = true;
-            });
-            services.AddControllers();
-        }
+        app.UseHttpsRedirection();
+        app.UseStaticFiles();
 
-        public void Configure(IApplicationBuilder app)
-        {
-            app.UseHttpsRedirection();
-            if (Env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+        app.UseRouting();
 
-            app.UseRouting();
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
-            app.UseOwin(x => x.UseNancy());
-        }
+        app.UseMiddleware<LoggerModule>();
+
+        app.UseAuthorization();
+
+        app.UseEndpoints(endpoints =>
+        {
+            endpoints.MapControllers();
+        });
     }
 }
